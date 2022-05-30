@@ -21,11 +21,21 @@ public class PublishController {
         this.publishService = publishService;
     }
 
-    @GetMapping
+    @GetMapping("/index")
     public ResponseEntity<?> index(@RequestParam("publishId") Long id) {
         try {
             PublishEntity publishEntity = publishService.findById(id);
             return new ResponseEntity<>(publishEntity, HttpStatus.OK);
+        } catch (PublishNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findByTitle(@RequestParam("title") String title) {
+        try {
+            PublishEntity publishFound = publishService.findByTitle(title);
+            return new ResponseEntity<>(publishFound, HttpStatus.OK);
         } catch (PublishNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
