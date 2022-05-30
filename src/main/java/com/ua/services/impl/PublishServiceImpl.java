@@ -33,6 +33,15 @@ public class PublishServiceImpl implements PublishService {
     }
 
     @Override
+    public PublishEntity findByTitle(String title) throws PublishNotFoundException {
+        return repository
+                .findByTitle(title)
+                .orElseThrow(
+                        () -> new PublishNotFoundException("Cannot find the publish")
+                );
+    }
+
+    @Override
     public List<PublishEntity> findAll() {
         return repository.findAll();
     }
