@@ -21,7 +21,7 @@ public class PublishController {
         this.publishService = publishService;
     }
 
-    @GetMapping
+    @GetMapping("/index")
     public ResponseEntity<?> index(@RequestParam("publishId") Long id) {
         try {
             PublishEntity publishEntity = publishService.findById(id);
@@ -29,6 +29,14 @@ public class PublishController {
         } catch (PublishNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findByTitle(@RequestParam("title") String title) {
+        PublishEntity publishFound = publishService.findByTitle(title);
+        return publishFound != null
+                ? new ResponseEntity<>(publishFound, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/all")

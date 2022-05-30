@@ -18,9 +18,8 @@ public interface PublishService {
      * Find publish by title in database
      * @param title title of publish to find
      * @return publish have been found
-     * @throws PublishNotFoundException when cannot find publish
      */
-    PublishEntity findByTitle(String title) throws PublishNotFoundException;
+    PublishEntity findByTitle(String title);
 
     /**
      * Find all publishes in database
